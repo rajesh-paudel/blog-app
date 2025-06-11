@@ -6,7 +6,7 @@ import { Moon, Sun, Search, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false); // Replace with useTheme if using next-themes
+  const [darkMode, setDarkMode] = useState(false); 
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 

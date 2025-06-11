@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20 md:flex md:items-center md:justify-between">
+    <section className="max-w-7xl mx-auto px-6 py-30 md:flex md:items-center md:justify-between border-b-2 border-white">
       {/* Left section */}
       <div className="md:w-1/2 mr-5">
         <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
