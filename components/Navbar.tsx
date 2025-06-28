@@ -1,12 +1,19 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Moon, Sun, Search, Menu, X } from 'lucide-react';
+import { useState } from "react";
+import Link from "next/link";
+import { Moon, Sun, Search, Menu, X } from "lucide-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false); 
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
@@ -21,10 +28,30 @@ export default function Navbar() {
 
           {/* Middle: Navigation links (hidden on mobile) */}
           <div className="hidden md:flex text-lg space-x-6 mr-3">
-            <Link href="/articles" className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white">Articles</Link>
-            <Link href="/tutorial" className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white">Tutorial</Link>
-            <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white">About</Link>
-            <Link href="/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white">Dashboard</Link>
+            <Link
+              href="/articles"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white"
+            >
+              Articles
+            </Link>
+            <Link
+              href="/tutorial"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white"
+            >
+              Tutorial
+            </Link>
+            <Link
+              href="/about"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white"
+            >
+              About
+            </Link>
+            <Link
+              href="/dashboard"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-white"
+            >
+              Dashboard
+            </Link>
           </div>
 
           {/* Right: Search, toggle, auth */}
@@ -40,19 +67,45 @@ export default function Navbar() {
             </div>
 
             {/* Dark mode toggle */}
-            <button onClick={toggleDarkMode} className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">
-              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              {darkMode ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </button>
 
-            {/* Sign Up / Login */}
-            <Link href="/signup" className="px-3 py-1 rounded-md text-sm bg-blue-600 text-white hover:bg-blue-700">Sign Up</Link>
-            <Link href="/login" className="px-3 py-1 rounded-md text-sm border border-blue-600 text-blue-600 hover:bg-blue-50">Login</Link>
+            <SignedIn>
+              <UserButton></UserButton>
+            </SignedIn>
+            <SignedOut>
+              <SignUpButton>
+                <button className="px-3 py-1 rounded-md text-sm bg-blue-600 text-white hover:bg-blue-700">
+                  Sign Up
+                </button>
+              </SignUpButton>
+              <SignInButton>
+                <button className="px-3 py-1 rounded-md text-sm border border-blue-600 text-blue-600 hover:bg-blue-50">
+                  Login
+                </button>
+              </SignInButton>
+            </SignedOut>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-700 dark:text-white">
-              {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-gray-700 dark:text-white"
+            >
+              {menuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -61,10 +114,30 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-3">
-          <Link href="/articles" className="block text-gray-700 dark:text-gray-300 hover:text-blue-500">Articles</Link>
-          <Link href="/tutorial" className="block text-gray-700 dark:text-gray-300 hover:text-blue-500">Tutorial</Link>
-          <Link href="/about" className="block text-gray-700 dark:text-gray-300 hover:text-blue-500">About</Link>
-          <Link href="/dashboard" className="block text-gray-700 dark:text-gray-300 hover:text-blue-500">Dashboard</Link>
+          <Link
+            href="/articles"
+            className="block text-gray-700 dark:text-gray-300 hover:text-blue-500"
+          >
+            Articles
+          </Link>
+          <Link
+            href="/tutorial"
+            className="block text-gray-700 dark:text-gray-300 hover:text-blue-500"
+          >
+            Tutorial
+          </Link>
+          <Link
+            href="/about"
+            className="block text-gray-700 dark:text-gray-300 hover:text-blue-500"
+          >
+            About
+          </Link>
+          <Link
+            href="/dashboard"
+            className="block text-gray-700 dark:text-gray-300 hover:text-blue-500"
+          >
+            Dashboard
+          </Link>
 
           {/* Search */}
           <div className="relative mt-2">
@@ -78,11 +151,28 @@ export default function Navbar() {
 
           {/* Toggle + Buttons */}
           <div className="flex items-center gap-3 mt-3">
-            <button onClick={toggleDarkMode} className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">
-              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              {darkMode ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </button>
-            <Link href="/signup" className="px-3 py-1 rounded-md text-sm bg-blue-600 text-white hover:bg-blue-700">Sign Up</Link>
-            <Link href="/login" className="px-3 py-1 rounded-md text-sm border border-blue-600 text-blue-600 hover:bg-blue-50">Login</Link>
+            <Link
+              href="/signup"
+              className="px-3 py-1 rounded-md text-sm bg-blue-600 text-white hover:bg-blue-700"
+            >
+              Sign Up
+            </Link>
+            <Link
+              href="/login"
+              className="px-3 py-1 rounded-md text-sm border border-blue-600 text-blue-600 hover:bg-blue-50"
+            >
+              Login
+            </Link>
           </div>
         </div>
       )}
